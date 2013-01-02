@@ -23,7 +23,6 @@ public class GameServer {
 			serverSocket = new ServerSocket(PORT);
 			serverSocket.setSoTimeout(10000);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			logger.log(Level.SEVERE, "Server setup failed", e);
 			System.exit(1);
 		}
@@ -65,21 +64,10 @@ public class GameServer {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		synchronized (tg) {
-			if (!tg.isDestroyed()) {
-				tg.stop();
-				try {
-					tg.wait();
-				} catch (InterruptedException e) {
-					logger.log(Level.SEVERE, "Uh Oh!", e);
-				}
-			}
-
+		try {
+			serverSocket.close();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
-		synchronized (clientSockets) {
-			logger.log(Level.INFO,
-					"Number of connections: " + clientSockets.size());
-		}
-
 	}
 }

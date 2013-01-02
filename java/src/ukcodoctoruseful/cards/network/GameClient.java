@@ -12,7 +12,7 @@ import ukcodoctoruseful.cards.event.CardsEvent;
 
 public class GameClient {
 
-	GameEventProtocol protocol;
+	PlayerProtocol protocol;
 	private Socket gameSocket;
 
 	public GameClient() {

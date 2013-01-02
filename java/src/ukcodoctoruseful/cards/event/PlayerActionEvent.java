@@ -1,32 +1,48 @@
 package ukcodoctoruseful.cards.event;
 
-public class PlayerActionEvent
-{
+import ukcodoctoruseful.cards.Player;
 
-   public PlayerActionEvent(PlayerAction action, double amount) throws IllegalEventException
-   {
-      this.amount = amount;
-      switch (action)
-      {
-         case ANTE:
-         case CALL:
-         case FOLD:
-            break;
-         case SEE:
-         case RAISE:
-            if (amount <= 0.01)
-            {
-               throw new IllegalEventException("amount required for action " + action);
-            }
-      }
-   }
+public class PlayerActionEvent {
 
-   public enum PlayerAction
-   {
-      ANTE, CALL, FOLD, SEE, RAISE
-   };
+	private final PlayerAction playerAction;
+	// amount only required for ante, see, raise.
+	private final double amount;
+	private final String playerId;
 
-   //amount only required for ante, see, raise.
-   private double amount;
+	public PlayerActionEvent(Player player, String action, double amount)
+			throws IllegalEventException {
+		playerId = player.getPlayerId();
+		playerAction = convert(action);
+		this.amount = amount;
+		switch (playerAction) {
+		case ANTE:
+		case CALL:
+		case FOLD:
+			break;
+		case SEE:
+		case RAISE:
+			if (amount <= 0.01) {
+				throw new IllegalEventException("amount required for action "
+						+ action);
+			}
+		}
+	}
+
+	private PlayerAction convert(String action) throws IllegalArgumentException, NullPointerException {
+		return PlayerAction.valueOf(action);
+	}
+
+	public enum PlayerAction {
+		ANTE, CALL, FOLD, SEE, RAISE
+	};
+
+	public PlayerAction getAction() {
+		return playerAction;
+	}
+
+	public double getAmount() {
+		return amount;
+
+	}
 
 }
