@@ -12,6 +12,8 @@ Although I'm moving away from development work, I still occasionally need to scr
 Messing around with networking.
 #### ukcodoctoruseful.cards
 Messing around with a card game.
+#### nodejs/shop
+A node-based ecommerce platform. Currently being refactored to use TDD, AngularJS and RESTful services as much as possible.
 
 ## History
 
